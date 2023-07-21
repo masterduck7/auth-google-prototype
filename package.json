@@ -2,7 +2,7 @@
   "name": "auth-google-prototype",
   "version": "1.0.0",
   "description": "Auth with google prototype in NodeJS",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

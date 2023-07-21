@@ -1,5 +1,5 @@
 const passport = require('passport');
-const app = require('../config/app');
+const app = require('./app');
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -27,17 +27,22 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-app.get('/success', (req, res) => {
+app.get('/login/success', (req, res) => {
   res.send(userProfile)
 });
-app.get('/error', (req, res) => res.send("error logging in"));
+app.get('/login/error', (req, res) => res.send("error logging in"));
 
-app.get('/auth/google', 
+app.get('/login/auth/google', 
   passport.authenticate('google', { scope : ['profile', 'email'] })
 );
-app.get('/auth/google/callback', 
+app.get('/login/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/error' }),
   function(req, res) {
-    res.redirect('/success');
+    res.redirect('/login/success');
   }
 );
+
+module.exports = {
+  passport: passport,
+  userProfile: userProfile,
+};
