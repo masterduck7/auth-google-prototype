@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('./src/config/passport');
+require('./src/models/db');
 const app = require('./src/config/app');
 const indexRoutes=require('./src/routes/index');
 
