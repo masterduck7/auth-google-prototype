@@ -22,22 +22,22 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.CALLBACK_URL,
   },
   function(accessToken, refreshToken, profile, done) {
-      userProfile=profile;
-      return done(null, userProfile);
+    userProfile=profile;
+    return done(null, userProfile);
   }
 ));
 
 app.get('/success', (req, res) => {
-    res.send(passport.userProfile)
-  });
-  app.get('/error', (req, res) => res.send("error logging in"));
-   
-  app.get('/auth/google', 
-    passport.authenticate('google', { scope : ['profile', 'email'] }));
-   
-  app.get('/auth/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/error' }),
-    function(req, res) {
-      // Successful authentication, redirect success.
-      res.redirect('/success');
-    });
+  res.send(userProfile)
+});
+app.get('/error', (req, res) => res.send("error logging in"));
+
+app.get('/auth/google', 
+  passport.authenticate('google', { scope : ['profile', 'email'] })
+);
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/error' }),
+  function(req, res) {
+    res.redirect('/success');
+  }
+);
