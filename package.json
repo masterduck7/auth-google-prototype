@@ -4,6 +4,7 @@
   "description": "Auth with google prototype in NodeJS",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Luis Ramirez",
@@ -13,6 +14,7 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "mongoose": "^7.4.0",
     "passport": "^0.6.0",
     "passport-google-oauth": "^2.0.0"
   }

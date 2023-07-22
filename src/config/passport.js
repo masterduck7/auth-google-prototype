@@ -1,5 +1,6 @@
 const passport = require('passport');
 const app = require('./app');
+const middleware = require('./middleware');
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -28,7 +29,7 @@ passport.use(new GoogleStrategy({
 ));
 
 app.get('/login/success', (req, res) => {
-  res.send(userProfile)
+  middleware.checkUser(res, userProfile);
 });
 app.get('/login/error', (req, res) => res.send("error logging in"));
 
