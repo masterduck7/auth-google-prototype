@@ -4,6 +4,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', 'src/views')
+app.use(express.json());
 app.use(session({
     resave: false,
     saveUninitialized: true,
