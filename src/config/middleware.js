@@ -1,15 +1,30 @@
 require('dotenv').config();
+const userController = require('../controllers/user');
 
-var checkUser = function(res, userProfile){
-    if (process.env.VALID_USERS.includes(userProfile["id"])) {
-        res.send({
-            "message": "Hello " + userProfile["displayName"],
-        });
+var checkUser = async function(res, userProfile){
+    try{
+        const user = await userController.getUser(userProfile["id"]);
+
+        // User not registered, needs to be registered
+        if (!user) {
+            const registerUser = await userController.createUser(userProfile["id"], userProfile["displayName"]);
+            if (registerUser) {
+                res.send({
+                    "message": "Hello " + registerUser["googleName"] + ". You have been registered",
+                });
+            }
+            else {
+                res.status(500).json({message: error.message})
+            }
+        }
+        else {
+            res.send({
+                "message": "Hello " + user["googleName"],
+            });
+        }
     }
-    else {
-        res.send({
-            "message": "Error: User not registered",
-        });
+    catch(error){
+        res.status(500).json({message: error.message})
     }
 };
 
